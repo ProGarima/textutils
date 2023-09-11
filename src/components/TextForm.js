@@ -73,7 +73,7 @@ export default function TextForm(props) {
           Remove Extra space
         </button>
       </div>
-      <div className="container my-2" style={{ color: props.mode === "dark" ? "white" : "gray" }}>
+      <div className="container my-2 mx-2" style={{ color: props.mode === "dark" ? "white" : "gray" }}>
         <h2>Your text here</h2>
         <p>
           {(text.split(/[ ]+/).length)-1} words & {text.length} characters  
