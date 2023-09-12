@@ -3,38 +3,32 @@ import React, { useState } from "react";
 export default function TextForm(props) {
   const [text, setText] = useState("");
   const handleUpperClick = () => {
-    // console.log("uppercase clicked");
     let newText = text.toUpperCase();
     setText(newText);
-    props.showAlert("Converted to upper case", "success")
+    props.showAlert("Converted to upper case", "success");
   };
   const handleLowerClick = () => {
-    // console.log("uppercase clicked");
     let newText = text.toLowerCase();
     setText(newText);
-    props.showAlert("Converted to lower case", "success")
+    props.showAlert("Converted to lower case", "success");
   };
   const handleClear = () => {
-    // console.log("uppercase clicked");
     setText("");
-    props.showAlert("Cleared!", "success")
+    props.showAlert("Cleared!", "success");
   };
   const handleOnChange = (e) => {
-    // console.log("handleOnChange clicked");
     setText(e.target.value);
   };
 
   const handleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
-    props.showAlert("Copied to clipboard", "success")
+    navigator.clipboard.writeText(text);
+    props.showAlert("Copied to clipboard", "success");
   };
 
   const handleSpace = () => {
     let newtext = text.split(/[ ]+/);
     setText(newtext.join(" "));
-    props.showAlert("Extra whitespaces removed", "success")
+    props.showAlert("Extra whitespaces removed", "success");
   };
 
   return (
@@ -52,33 +46,67 @@ export default function TextForm(props) {
             id="myBox"
             onChange={handleOnChange}
             style={{
-              backgroundColor: props.mode === "dark" ? "gray" : "white",
+              backgroundColor: props.mode === "dark" ? "#76838f" : "white",
               color: props.mode === "dark" ? "white" : "gray",
             }}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpperClick}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleUpperClick}
+          disabled={text.length > 0 ? false : true}
+        >
           Convert to uppper case
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLowerClick}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleLowerClick}
+          disabled={text.length > 0 ? false : true}
+        >
           Convert to lower case
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleClear}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleClear}
+          disabled={text.length > 0 ? false : true}
+        >
           Clear All
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleCopy}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleCopy}
+          disabled={text.length > 0 ? false : true}
+        >
           Copy to Clipboard
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleSpace}>
+        <button
+          className="btn btn-primary mx-2 my-2"
+          onClick={handleSpace}
+          disabled={text.length > 0 ? false : true}
+        >
           Remove Extra space
         </button>
       </div>
-      <div className="container my-2 mx-2" style={{ color: props.mode === "dark" ? "white" : "gray" }}>
+      <div
+        className="container my-2 mx-2"
+        style={{ color: props.mode === "dark" ? "white" : "gray" }}
+      >
         <h2>Your text here</h2>
         <p>
-          {(text.split(/[ ]+/).length)-1} words & {text.length} characters  
+          {
+            text.split(/\s+/).filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          words & {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} minutes read</p>
+        <p>
+          {0.008 *
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          minutes read
+        </p>
         <h2>Preview</h2>
         <p>{text}</p>
       </div>

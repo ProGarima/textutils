@@ -1,28 +1,12 @@
 import React, { useState } from "react";
 
-export default function About() {
-  const [mystyle, setmystyle] = useState({
-    color: "black",
-    backgroundColor: "white",
-   
-  });
-  const [btntext, setbtntext] = useState("Enable dark mode");
-  const handledarkmode = () => {
-    if (mystyle.color === "black") {
-      setmystyle({
-        color: "white",
-        backgroundColor: "black",
-        border: "1px solid white"
-      });
-      setbtntext("Enable light mode");
-    } else {
-      setmystyle({
-        color: "black",
-        backgroundColor: "white",
-      });
-      setbtntext("Enable dark mode");
-    }
+export default function About(props) {
+  
+  let mystyle = {
+    color: props.mode == "dark" ? "white" : "#0f3556",
+    backgroundColor: props.mode == "dark" ? "#0f3556" : "white",
   };
+
   return (
     <div className="container" style={mystyle}>
       <h2>About Us</h2>
@@ -38,7 +22,7 @@ export default function About() {
               aria-controls="collapseOne"
               style={mystyle}
             >
-              Accordion Item #1
+              Analyze your text
             </button>
           </h2>
           <div
@@ -70,7 +54,7 @@ export default function About() {
               aria-controls="collapseTwo"
               style={mystyle}
             >
-              Accordion Item #2
+              Free to use
             </button>
           </h2>
           <div
@@ -102,7 +86,7 @@ export default function About() {
               aria-controls="collapseThree"
               style={mystyle}
             >
-              Accordion Item #3
+              Browser compatible
             </button>
           </h2>
           <div
@@ -124,11 +108,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className="container my-3">
-        <button type="button" class="btn btn-primary" onClick={handledarkmode}>
-          {btntext}
-        </button>
-      </div>
+    
     </div>
   );
 }
